@@ -16,5 +16,17 @@
   },
   "devDependencies": {
     "@types/pg": "^8.11.10"
+  },
+  "main": "./dist/runner.js",
+  "types": "./dist/runner.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/runner.d.ts",
+      "default": "./dist/runner.js"
+    },
+    "./runner": {
+      "types": "./dist/runner.d.ts",
+      "default": "./dist/runner.js"
+    }
   }
 }

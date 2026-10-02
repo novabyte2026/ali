@@ -146,14 +146,28 @@ export function isEstimated<T>(
   return d.state === 'ESTIMATED';
 }
 
-/** True when the Datum carries any figure at all (exact or ranged). */
-export function hasValue<T>(d: Datum<T>): boolean {
+/**
+ * True when the Datum carries any figure at all (exact or ranged).
+ *
+ * A type guard, so a caller that has checked can reach `value` or `estimate`
+ * without a cast — which is what keeps the "propagate the weakest state" logic
+ * in the pricing engine readable.
+ */
+export function hasValue<T>(
+  d: Datum<T>,
+): d is Extract<Datum<T>, { state: 'KNOWN' } | { state: 'ESTIMATED' }> {
   return d.state === 'KNOWN' || d.state === 'ESTIMATED';
 }
 
-/** The exact value, or `undefined`. Never coerces an estimate to a point. */
-export function exactValue<T>(d: Datum<T>): T | undefined {
-  return d.state === 'KNOWN' ? d.value : undefined;
+/**
+ * The exact value, or `undefined`. Never coerces an estimate to a point.
+ *
+ * Accepts `undefined` so it composes with optional chaining
+ * (`exactValue(offering?.offer.price)`), which is the common shape at call
+ * sites that are looking up an offering that may not exist.
+ */
+export function exactValue<T>(d: Datum<T> | undefined): T | undefined {
+  return d !== undefined && d.state === 'KNOWN' ? d.value : undefined;
 }
 
 /**

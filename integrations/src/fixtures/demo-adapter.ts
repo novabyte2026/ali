@@ -1,16 +1,22 @@
 import {
   type AffiliateLink,
   type Capability,
+  type Datum,
+  type Money,
+  type Provenance,
   type NormalizedCoupon,
   type NormalizedOffer,
   type NormalizedProduct,
   type ProductIdentifiers,
   CAPABILITIES,
   cleanTitle,
+  known,
   moneyFromDecimal,
   normalizeColour,
   normalizeCapacity,
+  restricted,
   tokenSimilarity,
+  unknown,
 } from '@shelf/shared';
 import {
   type AdapterContext,
@@ -277,56 +283,37 @@ export class DemoFixtureAdapter implements ProviderAdapter {
         ? { state: 'KNOWN', value: referenceMoney, provenance }
         : { state: 'UNKNOWN', reason: 'NOT_PROVIDED_BY_SOURCE', providerId: this.providerId };
 
+    // A capability-blocked field resolves to RESTRICTED, exactly as it would
+    // from a live adapter, so the demo exercises the same UI path ("this
+    // source does not provide shipping through our integration") rather than
+    // the softer "the source did not send it".
+    const shippingAllowed = mapping.guard.check('shipping').allowed;
     const shippingMoney =
       listing.shipping === undefined ? null : moneyFromDecimal(listing.shipping, listing.currency);
+
     const shipping = {
-      cost:
-        shippingMoney && mapping.guard.check('shipping').allowed
-          ? ({ state: 'KNOWN', value: shippingMoney, provenance } as NormalizedOffer['shipping']['cost'])
-          : ({
-              state: 'UNKNOWN',
-              reason: 'NOT_PROVIDED_BY_SOURCE',
-              providerId: this.providerId,
-            } as NormalizedOffer['shipping']['cost']),
-      free:
-        listing.shipping === 0 && mapping.guard.check('shipping').allowed
-          ? ({ state: 'KNOWN', value: true, provenance } as NormalizedOffer['shipping']['free'])
-          : ({
-              state: 'UNKNOWN',
-              reason: 'NOT_PROVIDED_BY_SOURCE',
-              providerId: this.providerId,
-            } as NormalizedOffer['shipping']['free']),
+      cost: this.field<Money>(shippingAllowed, 'shipping', shippingMoney, provenance),
+      free: this.field<boolean>(
+        shippingAllowed,
+        'shipping',
+        listing.shipping === undefined ? null : listing.shipping === 0,
+        provenance,
+      ),
       destinationCountry: countryCode,
-      estimatedDays:
-        listing.shippingDays && mapping.guard.check('shipping').allowed
-          ? ({
-              state: 'KNOWN',
-              value: listing.shippingDays,
-              provenance,
-            } as NormalizedOffer['shipping']['estimatedDays'])
-          : ({
-              state: 'UNKNOWN',
-              reason: 'NOT_PROVIDED_BY_SOURCE',
-              providerId: this.providerId,
-            } as NormalizedOffer['shipping']['estimatedDays']),
-      service: {
-        state: 'UNKNOWN',
-        reason: 'NOT_PROVIDED_BY_SOURCE',
-        providerId: this.providerId,
-      } as NormalizedOffer['shipping']['service'],
+      estimatedDays: this.field<{ low: number; high: number }>(
+        shippingAllowed,
+        'shipping',
+        listing.shippingDays ?? null,
+        provenance,
+      ),
+      service: this.field<string>(shippingAllowed, 'shipping', null, provenance),
     } satisfies NormalizedOffer['shipping'];
 
     const tax = {
-      amount: {
-        state: 'UNKNOWN',
-        reason: 'NOT_COMPUTABLE',
-        providerId: this.providerId,
-      } as NormalizedOffer['tax']['amount'],
-      includedInItemPrice: {
-        state: 'UNKNOWN',
-        reason: 'NOT_PROVIDED_BY_SOURCE',
-        providerId: this.providerId,
-      } as NormalizedOffer['tax']['includedInItemPrice'],
+      // Destination duty is not computable from a marketplace listing, demo
+      // or otherwise; the pricing engine adds a labelled VAT estimate.
+      amount: unknown<Money>('NOT_COMPUTABLE', this.providerId),
+      includedInItemPrice: unknown<boolean>('NOT_PROVIDED_BY_SOURCE', this.providerId),
       appliedRate: null,
       destinationCountry: countryCode,
     } satisfies NormalizedOffer['tax'];
@@ -398,6 +385,22 @@ export class DemoFixtureAdapter implements ProviderAdapter {
     };
 
     return { product, offer };
+  }
+
+  /**
+   * Builds a Datum with the same three-way outcome a live adapter produces:
+   * RESTRICTED when the capability is unavailable, UNKNOWN when the source
+   * has nothing, KNOWN otherwise.
+   */
+  private field<T>(
+    allowed: boolean,
+    capability: string,
+    value: T | null,
+    provenance: Provenance,
+  ): Datum<T> {
+    if (!allowed) return restricted<T>(capability, this.providerId);
+    if (value === null) return unknown<T>('NOT_PROVIDED_BY_SOURCE', this.providerId);
+    return known(value, provenance);
   }
 
   private meta(operation: string) {
