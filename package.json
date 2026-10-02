@@ -1,0 +1,39 @@
+{
+  "name": "shelf-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shelf — shopping intelligence platform. Unified search, product identity matching and price comparison across authorized marketplace affiliate sources.",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "workspaces": [
+    "shared",
+    "database",
+    "integrations",
+    "backend",
+    "workers",
+    "frontend"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @shelf/shared && npm run build --workspace @shelf/integrations && npm run build --workspace @shelf/backend",
+    "typecheck": "tsc -b shared integrations backend workers database && npm run typecheck --workspace @shelf/frontend",
+    "test": "node --import tsx --test \"tests/unit/**/*.test.ts\"",
+    "test:e2e": "node --import tsx --test \"tests/e2e/**/*.test.ts\"",
+    "test:all": "npm run test && npm run test:e2e",
+    "dev": "node scripts/dev.mjs",
+    "dev:backend": "npm run dev --workspace @shelf/backend",
+    "dev:frontend": "npm run dev --workspace @shelf/frontend",
+    "dev:workers": "npm run dev --workspace @shelf/workers",
+    "db:migrate": "npm run migrate --workspace @shelf/database",
+    "db:status": "npm run status --workspace @shelf/database",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down",
+    "lint": "node scripts/lint.mjs",
+    "verify": "npm run typecheck && npm run test && npm run lint"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
