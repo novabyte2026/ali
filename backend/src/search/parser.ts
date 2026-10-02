@@ -165,8 +165,8 @@ function findBudget(
     const match = text.match(pattern);
     if (match && match.index !== undefined) {
       const currency = firstCurrency(match) ?? defaultCurrency;
-      const low = parseAmount(match[2] ?? match[1]);
-      const high = parseAmount(match[4] ?? match[3]);
+      const low = parseAmount(match[1]);
+      const high = parseAmount(match[2]);
       const minMoney = low === null ? null : moneyFromDecimal(low, currency);
       const maxMoney = high === null ? null : moneyFromDecimal(high, currency);
       if (minMoney && maxMoney) {
@@ -193,7 +193,7 @@ function findBudget(
     );
     const match = text.match(pattern);
     if (!match || match.index === undefined) continue;
-    const amount = parseAmount(match[2] ?? match[1]);
+    const amount = parseAmount(match[1]);
     if (amount === null) continue;
     const currency = firstCurrency(match) ?? defaultCurrency;
     const money = moneyFromDecimal(amount, currency);
@@ -219,7 +219,7 @@ function findBudget(
     if (!match || match.index === undefined) continue;
     // Do not re-read a span already consumed by an upper bound.
     if (recognitions.some((entry) => overlaps(entry, match.index!, match[0].length))) continue;
-    const amount = parseAmount(match[2] ?? match[1]);
+    const amount = parseAmount(match[1]);
     if (amount === null) continue;
     const currency = firstCurrency(match) ?? defaultCurrency;
     const money = moneyFromDecimal(amount, currency);
@@ -242,7 +242,7 @@ function findBudget(
     const match = text.match(bare);
     if (match && match.index !== undefined) {
       const amount = parseAmount(match[1]);
-      const currency = resolveCurrencyToken(match[2]) ?? defaultCurrency;
+      const currency = firstCurrency(match) ?? defaultCurrency;
       const money = amount === null ? null : moneyFromDecimal(amount, currency);
       if (money) {
         max = money;
@@ -265,14 +265,21 @@ function buildCurrencyPattern(): string {
   const tokens = Object.keys(CURRENCY_SYMBOLS)
     .sort((a, b) => b.length - a.length)
     .map(escapeRegExp);
-  return `(${tokens.join('|')})`;
+  // Non-capturing, so the only capture groups in a budget pattern are the
+  // numbers — which keeps their indices stable regardless of how many
+  // currency slots the pattern has.
+  return `(?:${tokens.join('|')})`;
 }
 
+/** Finds a currency symbol anywhere in the matched span. */
 function firstCurrency(match: RegExpMatchArray): CurrencyCode | null {
-  for (const group of match.slice(1)) {
-    if (!group) continue;
-    const resolved = resolveCurrencyToken(group);
-    if (resolved) return resolved;
+  const text = match[0] ?? '';
+  const tokens = Object.keys(CURRENCY_SYMBOLS).sort((a, b) => b.length - a.length);
+  for (const token of tokens) {
+    if (text.toLowerCase().includes(token.toLowerCase())) {
+      const resolved = resolveCurrencyToken(token);
+      if (resolved) return resolved;
+    }
   }
   return null;
 }

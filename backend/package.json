@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "HTTP API, authentication, search aggregation, engines and the compliance layer.",
-  "main": "./dist/server.js",
+  "main": "./dist/index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js",
@@ -25,5 +25,12 @@
   },
   "devDependencies": {
     "@types/pg": "^8.11.10"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   }
 }
