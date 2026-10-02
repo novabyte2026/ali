@@ -1,0 +1,96 @@
+/*
+ * The four routes.
+ *
+ * Present in the header on every page after the home screen, so the selected
+ * source is always visible (rule 109). Switching is a client-side state change
+ * with the query preserved — no full reload, and the results cross-fade rather
+ * than blanking the page.
+ */
+
+.wrap {
+  display: flex;
+  align-items: stretch;
+  gap: var(--s-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* Negative margin plus padding lets the row bleed to the viewport edge on a
+   * phone while keeping the tabs inside the page gutter. */
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+}
+
+.wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-3);
+  font-size: var(--t-sm);
+  font-weight: var(--w-medium);
+  color: var(--c-text-secondary);
+  white-space: nowrap;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color var(--d-fast) var(--ease);
+}
+
+.tab:hover:not(:disabled) {
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+/* The indicator is a 2px underline drawn as a pseudo-element so it can animate
+ * width without affecting layout. */
+.tab::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--s-2);
+  bottom: 0;
+  height: 2px;
+  background: var(--c-accent);
+  border-radius: 1px 1px 0 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--d-base) var(--ease-out);
+}
+
+.active {
+  color: var(--c-text);
+  font-weight: var(--w-semibold);
+}
+
+.active::after {
+  transform: scaleX(1);
+}
+
+/*
+ * A route whose sources cannot answer right now is shown, not hidden — the
+ * four routes are the product's structure and removing one would be more
+ * confusing than labelling it. It is dimmed and carries a reason.
+ */
+.unavailable {
+  color: var(--c-text-tertiary);
+}
+
+.unavailable:hover {
+  color: var(--c-text-secondary);
+}
+
+.stateNote {
+  font-size: var(--t-xs);
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+}
+
+.count {
+  font-size: var(--t-xs);
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,131 @@
+.section {
+  display: grid;
+  gap: var(--s-4);
+  scroll-margin-top: calc(var(--header-h) + var(--s-4));
+}
+
+.header {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.heading {
+  font-size: var(--t-lg);
+  letter-spacing: var(--ls-tight);
+}
+
+/* The "totals are not comparable" note. Caution-toned and above the table,
+ * because a reader who gets to the numbers first has already decided. */
+.caveat {
+  font-size: var(--t-sm);
+  color: var(--c-caution);
+  background: var(--c-caution-bg);
+  border: 1px solid var(--c-caution-border);
+  border-radius: var(--r-md);
+  padding: var(--s-3);
+  line-height: var(--lh-snug);
+  max-width: 72ch;
+}
+
+/* Horizontal scroll on a phone rather than collapsing the table into cards:
+ * a comparison loses its point when the columns stop lining up. */
+.scroller {
+  overflow-x: auto;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  min-width: 46rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.table thead th {
+  text-align: start;
+  font-size: var(--t-xs);
+  font-weight: var(--w-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  color: var(--c-text-tertiary);
+  padding: var(--s-3) var(--s-4);
+  background: var(--c-surface-sunken);
+  border-bottom: 1px solid var(--c-border);
+  white-space: nowrap;
+}
+
+.table tbody tr + tr th,
+.table tbody tr + tr td {
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.table tbody td,
+.table tbody th {
+  padding: var(--s-4);
+  vertical-align: top;
+  font-size: var(--t-sm);
+}
+
+/* A row whose total cannot be determined is dimmed slightly, so the eye does
+ * not read its item price as a comparable total. */
+.rowIncomparable {
+  background: var(--c-surface-sunken);
+}
+
+.storeCell {
+  text-align: start;
+  font-weight: var(--w-semibold);
+  color: var(--c-text);
+  white-space: nowrap;
+}
+
+.numericCell,
+.textCell {
+  display: table-cell;
+}
+
+.numericCell {
+  font-variant-numeric: tabular-nums;
+}
+
+.figure {
+  display: block;
+  font-weight: var(--w-medium);
+  color: var(--c-text);
+  margin-bottom: var(--s-1);
+}
+
+/* An absent figure. Regular weight, tertiary contrast, never a dash — a dash
+ * in a price column reads as zero. */
+.absent {
+  display: block;
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+  margin-bottom: var(--s-1);
+}
+
+.cellNote {
+  display: block;
+  font-size: var(--t-xs);
+  color: var(--c-caution);
+  line-height: var(--lh-snug);
+  margin-top: var(--s-1);
+  max-width: 18ch;
+}
+
+.actionCell {
+  text-align: end;
+  white-space: nowrap;
+}
+
+.footnote {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+  max-width: 72ch;
+}

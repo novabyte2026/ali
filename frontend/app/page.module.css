@@ -1,0 +1,326 @@
+/*
+ * Home page.
+ *
+ * Seven sections, not forty (rule 281). Hero with the search field, the four
+ * source cards, popular searches, how it works, what we show and do not, and
+ * the transparency note. Each one answers a question a first-time visitor
+ * actually has.
+ */
+
+.hero {
+  padding-block: var(--s-16) var(--s-10);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-block: var(--s-20) var(--s-12);
+  }
+}
+
+.heroInner {
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+.heading {
+  font-size: var(--t-3xl);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  margin-bottom: var(--s-4);
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: var(--t-4xl);
+  }
+}
+
+.subheading {
+  font-size: var(--t-md);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+  max-width: 48ch;
+  margin-inline: auto;
+  margin-bottom: var(--s-8);
+}
+
+.searchWrap {
+  max-width: 38rem;
+  margin-inline: auto;
+}
+
+/* --- Popular searches ---------------------------------------------------- */
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+  margin-top: var(--s-5);
+}
+
+.examplesLabel {
+  width: 100%;
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  margin-bottom: var(--s-1);
+}
+
+.example {
+  padding: var(--s-2) var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-pill);
+  transition:
+    border-color var(--d-fast) var(--ease),
+    color var(--d-fast) var(--ease),
+    background-color var(--d-fast) var(--ease);
+}
+
+.example:hover {
+  border-color: var(--c-accent-border);
+  background: var(--c-accent-subtle);
+  color: var(--c-accent-text);
+}
+
+/* --- Source cards -------------------------------------------------------- */
+
+.section {
+  padding-block: var(--s-12);
+}
+
+.sectionHeading {
+  font-size: var(--t-xl);
+  letter-spacing: var(--ls-tight);
+  margin-bottom: var(--s-6);
+}
+
+.sourceGrid {
+  display: grid;
+  gap: var(--s-3);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  .sourceGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  /* The "everything" route is the primary path, so it takes the first and
+   * widest cell rather than being one of four equal tiles (rule 283). */
+  .sourceGrid {
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  }
+}
+
+.sourceCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  min-height: 11rem;
+  text-align: start;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  transition:
+    transform var(--d-fast) var(--ease),
+    box-shadow var(--d-fast) var(--ease),
+    border-color var(--d-fast) var(--ease);
+}
+
+.sourceCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sh-md);
+  border-color: var(--c-border-strong);
+  text-decoration: none;
+}
+
+.sourceCardPrimary {
+  border-color: var(--c-accent-border);
+  background: linear-gradient(
+    to bottom,
+    var(--c-accent-subtle) 0%,
+    var(--c-surface) 42%
+  );
+}
+
+/* An unavailable route stays visible and clickable — it explains itself
+ * rather than disappearing (rule 284). */
+.sourceCardUnavailable {
+  opacity: 0.72;
+}
+
+.sourceName {
+  font-size: var(--t-lg);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-text);
+}
+
+.sourceDescription {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-snug);
+  flex: 1;
+}
+
+.sourceFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+}
+
+.sourceCapabilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+}
+
+.sourceCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  font-size: var(--t-sm);
+  font-weight: var(--w-medium);
+  color: var(--c-accent-text);
+}
+
+.sourceCta :global(svg) {
+  width: 15px;
+  height: 15px;
+}
+
+[dir='rtl'] .sourceCta :global(svg) {
+  transform: scaleX(-1);
+}
+
+/* --- How it works -------------------------------------------------------- */
+
+.steps {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: 1fr;
+  counter-reset: step;
+}
+
+@media (min-width: 700px) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .steps {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.step {
+  display: grid;
+  gap: var(--s-2);
+  align-content: start;
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--c-accent-subtle);
+  color: var(--c-accent-text);
+  border: 1px solid var(--c-accent-border);
+  font-size: var(--t-xs);
+  font-weight: var(--w-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepTitle {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-snug);
+}
+
+.stepBody {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+/* --- Trust section ------------------------------------------------------- */
+
+.trustSection {
+  padding-block: var(--s-12);
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.trustGrid {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .trustGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.trustItem {
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+}
+
+.trustIcon {
+  flex-shrink: 0;
+  color: var(--c-accent);
+  margin-top: 1px;
+}
+
+.trustText {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+/* --- Transparency -------------------------------------------------------- */
+
+.transparency {
+  padding: var(--s-6);
+  background: var(--c-surface-sunken);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  display: grid;
+  gap: var(--s-3);
+  max-width: 76ch;
+}
+
+.transparencyHeading {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+}
+
+.transparencyText {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+.transparencyLink {
+  font-size: var(--t-sm);
+  font-weight: var(--w-medium);
+  justify-self: start;
+}

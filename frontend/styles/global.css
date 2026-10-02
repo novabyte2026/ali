@@ -1,0 +1,307 @@
+@import './tokens.css';
+
+/*
+ * Global baseline.
+ *
+ * Reset, document defaults, focus handling, and the two motion primitives the
+ * whole app shares (section reveal and skeleton shimmer). Everything else is a
+ * CSS Module scoped to its component.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Smooth scrolling on anchor navigation, but never for someone who has
+   * asked for reduced motion (handled in the media query below). */
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-sans);
+  font-size: var(--t-base);
+  line-height: var(--lh-normal);
+  font-weight: var(--w-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+  /* Tabular figures everywhere: a column of prices that shifts width as the
+   * digits change is the kind of small sloppiness that makes a comparison
+   * table feel unreliable. */
+  font-variant-numeric: tabular-nums;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: var(--w-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-text);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--t-3xl);
+}
+h2 {
+  font-size: var(--t-xl);
+}
+h3 {
+  font-size: var(--t-lg);
+}
+h4 {
+  font-size: var(--t-md);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--c-accent-text);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/*
+ * Focus.
+ *
+ * `:focus-visible` only, so a mouse click does not draw a ring but a keyboard
+ * user always gets one. The ring is drawn with outline plus offset rather than
+ * a box-shadow so it stays visible over product imagery.
+ */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* Skip link: first thing in the tab order, invisible until focused. */
+.skip-link {
+  position: absolute;
+  inset-inline-start: var(--s-4);
+  top: -3rem;
+  z-index: var(--z-toast);
+  padding: var(--s-2) var(--s-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-md);
+  font-weight: var(--w-medium);
+  transition: top var(--d-fast) var(--ease);
+}
+
+.skip-link:focus-visible {
+  top: var(--s-3);
+}
+
+::selection {
+  background: var(--c-accent-subtle);
+  color: var(--c-accent-text);
+}
+
+/* --- Scroll progress ------------------------------------------------------
+ * A 2px line at the top of long pages. Small enough to read as part of the
+ * chrome rather than as an effect.
+ */
+.scroll-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 2px;
+  z-index: var(--z-header);
+  background: var(--c-accent);
+  transform-origin: left center;
+  transform: scaleX(var(--progress, 0));
+  transition: transform 80ms linear;
+  pointer-events: none;
+}
+
+[dir='rtl'] .scroll-progress {
+  transform-origin: right center;
+}
+
+/* --- Section reveal ------------------------------------------------------
+ * The only entrance animation in the product: a short fade with a small
+ * upward translate, triggered once when a section enters the viewport. No
+ * zoom, no rotation, no stagger beyond a single delay step.
+ */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--d-slow) var(--ease-out),
+    transform var(--d-slow) var(--ease-out);
+}
+
+.reveal[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Skeletons -----------------------------------------------------------
+ * Shaped like the real layout so the page does not jump when content
+ * arrives, which is both a perceived-speed win and a CLS win.
+ */
+.skeleton {
+  background: var(--c-surface-sunken);
+  border-radius: var(--r-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--c-surface) 60%, transparent),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: skeleton-sweep 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* --- Utilities ----------------------------------------------------------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.page-narrow {
+  width: 100%;
+  max-width: var(--page-narrow);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/*
+ * Reduced motion.
+ *
+ * Not a token-level dimming: animations are removed, transitions collapse to
+ * near-zero, and the skeleton shimmer stops entirely. The reveal class is
+ * reset to visible so content is never left at opacity 0 when the transition
+ * that would have shown it is disabled — which is the bug that makes
+ * reduced-motion sites appear blank.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .skeleton::after {
+    display: none;
+  }
+}
+
+/* The same, driven by the account preference rather than the OS setting. */
+[data-reduced-motion='true'] .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reduced-motion='true'] * {
+  animation-duration: 0.01ms !important;
+  transition-duration: 0.01ms !important;
+}
+
+[data-reduced-motion='true'] .skeleton::after {
+  display: none;
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --c-border: var(--c-border-strong);
+    --c-text-secondary: var(--c-text);
+  }
+}

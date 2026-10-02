@@ -1,0 +1,163 @@
+/*
+ * Prose styling for the explanatory and legal pages.
+ *
+ * A measure of about 68 characters, generous leading, and clear spacing
+ * between blocks. These pages exist to be read rather than skimmed, and the
+ * affiliate disclosure in particular has to be comfortable to read or it is
+ * not really a disclosure.
+ */
+
+.prose {
+  display: grid;
+  gap: var(--s-5);
+  padding-bottom: var(--s-16);
+  max-width: 68ch;
+  font-size: var(--t-base);
+  line-height: var(--lh-normal);
+  color: var(--c-text-secondary);
+}
+
+.prose h2 {
+  font-size: var(--t-lg);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-text);
+  margin-top: var(--s-4);
+}
+
+.prose h3 {
+  font-size: var(--t-md);
+  color: var(--c-text);
+}
+
+.prose p {
+  line-height: var(--lh-normal);
+}
+
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.bullets {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.bullets li {
+  display: flex;
+  gap: var(--s-3);
+  line-height: var(--lh-normal);
+}
+
+.bullets li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  margin-top: 0.62em;
+  border-radius: 50%;
+  background: var(--c-accent);
+}
+
+.steps {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.step {
+  display: flex;
+  gap: var(--s-4);
+  align-items: flex-start;
+}
+
+.stepNumber {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--c-accent-subtle);
+  color: var(--c-accent-text);
+  border: 1px solid var(--c-accent-border);
+  font-size: var(--t-sm);
+  font-weight: var(--w-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepTitle {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+  color: var(--c-text);
+  margin-bottom: var(--s-1);
+}
+
+.sourceList {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.sourceItem {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+}
+
+.sourceName {
+  font-weight: var(--w-medium);
+  color: var(--c-text);
+  flex: 1;
+}
+
+/* --- Feature register ---------------------------------------------------- */
+
+.featureList {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.featureItem {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+}
+
+.featureTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  justify-content: space-between;
+}
+
+.featureId {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--c-text-secondary);
+}
+
+.featureNote {
+  font-size: var(--t-sm);
+  line-height: var(--lh-normal);
+}
+
+/* What is standing between this feature and production. Caution-toned because
+ * it is an action item, not a defect. */
+.featureBlocked {
+  font-size: var(--t-xs);
+  color: var(--c-caution);
+  line-height: var(--lh-snug);
+}
+
+.updated {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}

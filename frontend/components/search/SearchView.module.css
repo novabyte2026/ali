@@ -1,0 +1,177 @@
+.layout {
+  display: grid;
+  gap: var(--s-5);
+  padding-block: var(--s-5) var(--s-10);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1000px) {
+  /* Filters in a sidebar on desktop, in a drawer on mobile — designed for
+   * each rather than one scaled down (rule 65). */
+  .layout {
+    grid-template-columns: 240px 1fr;
+    gap: var(--s-8);
+  }
+}
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .sidebar {
+    display: block;
+    align-self: start;
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-4));
+    max-height: calc(100dvh - var(--header-h) - var(--s-8));
+    overflow-y: auto;
+  }
+}
+
+.main {
+  min-width: 0;
+  display: grid;
+  gap: var(--s-4);
+  align-content: start;
+}
+
+.searchRow {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  padding-bottom: var(--s-1);
+}
+
+.resultCount {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  font-weight: var(--w-medium);
+}
+
+.sourceNote {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}
+
+.sourceNoteWarning {
+  color: var(--c-caution);
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-inline-start: auto;
+}
+
+.mobileFilterButton {
+  display: inline-flex;
+}
+
+@media (min-width: 1000px) {
+  .mobileFilterButton {
+    display: none;
+  }
+}
+
+.select {
+  appearance: none;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-md);
+  padding: var(--s-2) var(--s-6) var(--s-2) var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--c-text);
+  cursor: pointer;
+  /* Chevron drawn in the background so the control keeps a native-feeling
+   * caret without an extra element. */
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 16px) calc(50% - 1px),
+    calc(100% - 11px) calc(50% - 1px);
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+}
+
+[dir='rtl'] .select {
+  padding: var(--s-2) var(--s-3) var(--s-2) var(--s-6);
+  background-position:
+    11px calc(50% - 1px),
+    16px calc(50% - 1px);
+}
+
+.select:focus-visible {
+  border-color: var(--c-accent);
+}
+
+.results {
+  display: grid;
+  gap: var(--s-3);
+}
+
+/* --- Mobile filter drawer ------------------------------------------------- */
+
+.drawerBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  background: rgba(28, 26, 24, 0.4);
+  animation: fade-in var(--d-fast) var(--ease);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.drawer {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: calc(var(--z-drawer) + 1);
+  max-height: 85dvh;
+  overflow-y: auto;
+  background: var(--c-surface);
+  border-top-left-radius: var(--r-xl);
+  border-top-right-radius: var(--r-xl);
+  box-shadow: var(--sh-lg);
+  padding: var(--s-5) var(--s-4) var(--s-8);
+  animation: slide-up var(--d-slow) var(--ease-out);
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+.drawerTitle {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+}
+
+.drawerFooter {
+  display: flex;
+  gap: var(--s-2);
+  margin-top: var(--s-5);
+}

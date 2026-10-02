@@ -1,0 +1,139 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: color-mix(in srgb, var(--c-bg) 88%, transparent);
+  /* A blur on the header is the one place it earns its keep: content scrolling
+   * under a sticky bar needs separation, and a solid fill would cut the page
+   * in two. Kept subtle — this is not a glass panel. */
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--c-border-subtle);
+  transition: border-color var(--d-base) var(--ease);
+}
+
+/* Scrolled state: the border firms up so the bar reads as attached to the
+ * viewport rather than floating. The bar does not shrink or hide — losing
+ * navigation mid-scroll is disorienting. */
+.scrolled {
+  border-bottom-color: var(--c-border);
+  box-shadow: var(--sh-sm);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  min-height: var(--header-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  font-size: var(--t-lg);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-text);
+  flex-shrink: 0;
+}
+
+.brand:hover {
+  text-decoration: none;
+  color: var(--c-accent-text);
+}
+
+.brandTag {
+  display: none;
+  font-size: var(--t-xs);
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+  letter-spacing: var(--ls-normal);
+}
+
+@media (min-width: 1100px) {
+  .brandTag {
+    display: inline;
+  }
+}
+
+.searchSlot {
+  flex: 1;
+  min-width: 0;
+  /* Hidden on the home page, where the hero owns the search field; showing
+   * both would be two places to type the same thing. */
+  display: none;
+}
+
+.searchSlotVisible {
+  display: block;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}
+
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: var(--s-1);
+}
+
+@media (min-width: 900px) {
+  .desktopNav {
+    display: flex;
+  }
+  .mobileMenuButton {
+    display: none;
+  }
+}
+
+.navLink {
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-md);
+  font-size: var(--t-sm);
+  font-weight: var(--w-medium);
+  color: var(--c-text-secondary);
+  transition:
+    background-color var(--d-fast) var(--ease),
+    color var(--d-fast) var(--ease);
+}
+
+.navLink:hover {
+  background: var(--c-surface-hover);
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+.navLinkActive {
+  color: var(--c-text);
+  background: var(--c-surface-sunken);
+}
+
+/* --- Mobile menu ---------------------------------------------------------- */
+
+.mobileMenu {
+  border-top: 1px solid var(--c-border-subtle);
+  background: var(--c-surface);
+  padding: var(--s-3) 0 var(--s-4);
+}
+
+.mobileMenuList {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.mobileMenuList .navLink {
+  padding: var(--s-3);
+  font-size: var(--t-base);
+}
+
+/* --- Tab row -------------------------------------------------------------- */
+
+.tabRow {
+  border-top: 1px solid var(--c-border-subtle);
+}

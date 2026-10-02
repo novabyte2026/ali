@@ -1,0 +1,94 @@
+/*
+ * Badges carry data-quality meaning, not emphasis.
+ *
+ * Four tones map to the four Datum states plus the coupon verification ladder.
+ * They are quiet on purpose: a page of results where every card shouts is a
+ * page nobody reads, and a "verified" badge only means something if it is not
+ * competing with six others.
+ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  font-size: var(--t-xs);
+  font-weight: var(--w-medium);
+  line-height: 1;
+  padding: 0.3125rem var(--s-2);
+  border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  letter-spacing: var(--ls-normal);
+}
+
+.badge :global(svg) {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.known {
+  background: var(--c-verified-bg);
+  color: var(--c-verified);
+  border-color: var(--c-verified-border);
+}
+
+.estimated {
+  background: var(--c-caution-bg);
+  color: var(--c-caution);
+  border-color: var(--c-caution-border);
+}
+
+.unknown {
+  background: var(--c-unknown-bg);
+  color: var(--c-unknown);
+  border-color: var(--c-unknown-border);
+}
+
+.restricted {
+  background: var(--c-unknown-bg);
+  color: var(--c-unknown);
+  border-color: var(--c-unknown-border);
+  /* A dashed edge distinguishes "this source does not provide it" from
+   * "nobody knows", without needing a second colour. */
+  border-style: dashed;
+}
+
+.problem {
+  background: var(--c-problem-bg);
+  color: var(--c-problem);
+  border-color: var(--c-problem-border);
+}
+
+.neutral {
+  background: var(--c-surface-sunken);
+  color: var(--c-text-secondary);
+  border-color: var(--c-border);
+}
+
+.accent {
+  background: var(--c-accent-subtle);
+  color: var(--c-accent-text);
+  border-color: var(--c-accent-border);
+}
+
+/* Source badge: text only unless we hold permission for the mark. Small, so
+ * it never takes half the card. */
+.source {
+  background: var(--c-surface-sunken);
+  color: var(--c-text-secondary);
+  border-color: var(--c-border);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-snug);
+}
+
+.lg {
+  font-size: var(--t-sm);
+  padding: 0.375rem var(--s-3);
+}
+
+.plain {
+  background: none;
+  border-color: transparent;
+  padding-inline: 0;
+}

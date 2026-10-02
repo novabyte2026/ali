@@ -1,0 +1,271 @@
+/*
+ * Design tokens.
+ *
+ * A deliberately small system. The brief was a product that looks like a
+ * serious commercial startup rather than a generated template, and the way to
+ * get there is restraint: one accent colour, a tight neutral ramp, a modular
+ * type scale, a 4px spacing grid, and three shadow levels. Nothing here is
+ * decorative.
+ *
+ * What is absent is as considered as what is present — no gradients beyond a
+ * single hairline, no glass effects, no glow, no neon. Those read as
+ * "AI dashboard" and this is a shopping tool.
+ */
+
+:root {
+  /* --- Neutrals -----------------------------------------------------------
+   * A warm grey ramp. Pure greys look clinical next to product photography,
+   * and marketplace imagery is the loudest thing on the page.
+   */
+  --c-bg: #fbfaf9;
+  --c-surface: #ffffff;
+  --c-surface-raised: #ffffff;
+  --c-surface-sunken: #f5f3f1;
+  --c-surface-hover: #f7f5f3;
+
+  --c-border: #e5e1dd;
+  --c-border-strong: #d2ccc6;
+  --c-border-subtle: #efebe7;
+
+  --c-text: #1c1a18;
+  --c-text-secondary: #57514b;
+  --c-text-tertiary: #857d75;
+  --c-text-inverse: #fbfaf9;
+
+  /* --- Accent -------------------------------------------------------------
+   * A single deep teal. Chosen because it reads as considered rather than
+   * promotional: retail blue and retail orange both carry a "sale" tone this
+   * product does not want. Used for interaction, never for decoration.
+   */
+  --c-accent: #0f5e59;
+  --c-accent-hover: #0c4b47;
+  --c-accent-active: #093a37;
+  --c-accent-subtle: #e8f1f0;
+  --c-accent-border: #a8cdc9;
+  --c-accent-text: #0a4742;
+
+  /* --- Status -------------------------------------------------------------
+   * Four states, used only to carry meaning about data quality. Not a palette
+   * for emphasis.
+   */
+  --c-verified: #1d6b43;
+  --c-verified-bg: #eaf4ee;
+  --c-verified-border: #a9cdb8;
+
+  --c-caution: #8a5a12;
+  --c-caution-bg: #fdf4e6;
+  --c-caution-border: #e2c48d;
+
+  --c-unknown: #5b5650;
+  --c-unknown-bg: #f2f0ee;
+  --c-unknown-border: #ddd8d2;
+
+  --c-problem: #9a2f28;
+  --c-problem-bg: #fdeeec;
+  --c-problem-border: #e9b5b0;
+
+  /* --- Typography ---------------------------------------------------------
+   * System fonts. A web font is 40–120KB of render-blocking weight for a
+   * product whose main feature is speed, and the system stacks on every target
+   * platform are good. Hebrew falls through to the platform's Hebrew face,
+   * which is what users already read everything else in.
+   */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans Hebrew', 'Arial Hebrew',
+    Rubik, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* 1.2 ratio from a 16px base: enough contrast for hierarchy, not so much
+   * that a page of cards becomes a poster. */
+  --t-xs: 0.75rem;
+  --t-sm: 0.8125rem;
+  --t-base: 0.9375rem;
+  --t-md: 1rem;
+  --t-lg: 1.1875rem;
+  --t-xl: 1.4375rem;
+  --t-2xl: 1.75rem;
+  --t-3xl: 2.125rem;
+  --t-4xl: 2.625rem;
+
+  --w-regular: 400;
+  --w-medium: 500;
+  --w-semibold: 600;
+
+  --lh-tight: 1.2;
+  --lh-snug: 1.35;
+  --lh-normal: 1.55;
+
+  /* Negative tracking on large text only; at body size it hurts legibility,
+   * and in Hebrew it hurts it more. */
+  --ls-tight: -0.02em;
+  --ls-snug: -0.01em;
+  --ls-normal: 0;
+  --ls-wide: 0.04em;
+
+  /* --- Spacing: 4px grid ------------------------------------------------- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.25rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-10: 2.5rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+  --s-20: 5rem;
+  --s-24: 6rem;
+
+  /* --- Radii ------------------------------------------------------------- */
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+  --r-pill: 999px;
+
+  /* --- Elevation ----------------------------------------------------------
+   * Three levels, all low. A shopping card is a piece of paper on a desk, not
+   * a floating pane.
+   */
+  --sh-sm: 0 1px 2px rgba(28, 26, 24, 0.05);
+  --sh-md: 0 1px 3px rgba(28, 26, 24, 0.06), 0 2px 8px rgba(28, 26, 24, 0.04);
+  --sh-lg: 0 2px 6px rgba(28, 26, 24, 0.07), 0 8px 24px rgba(28, 26, 24, 0.06);
+  --sh-focus: 0 0 0 3px var(--c-accent-subtle);
+
+  /* --- Motion -------------------------------------------------------------
+   * 150–250ms, as specified. Fast enough to feel like response rather than
+   * animation. The easing is a standard decelerate: things arrive, they do
+   * not bounce.
+   */
+  --d-instant: 100ms;
+  --d-fast: 150ms;
+  --d-base: 200ms;
+  --d-slow: 250ms;
+  --ease: cubic-bezier(0.2, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Layout ------------------------------------------------------------ */
+  --page-max: 1240px;
+  --page-narrow: 760px;
+  --gutter: 1rem;
+  --header-h: 60px;
+
+  --z-base: 1;
+  --z-sticky: 50;
+  --z-header: 100;
+  --z-drawer: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 2rem;
+    --header-h: 64px;
+  }
+}
+
+/*
+ * Dark mode.
+ *
+ * Follows the system by default and can be overridden by data-theme on the
+ * root. Surfaces lift rather than the text dimming: a dark comparison table
+ * needs its rows to stay separable.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --c-bg: #151413;
+    --c-surface: #1d1b1a;
+    --c-surface-raised: #242221;
+    --c-surface-sunken: #121110;
+    --c-surface-hover: #272524;
+
+    --c-border: #322f2d;
+    --c-border-strong: #45413e;
+    --c-border-subtle: #272423;
+
+    --c-text: #f2efec;
+    --c-text-secondary: #b5aea7;
+    --c-text-tertiary: #857d76;
+    --c-text-inverse: #151413;
+
+    --c-accent: #4fb3aa;
+    --c-accent-hover: #63c2b9;
+    --c-accent-active: #7bcfc7;
+    --c-accent-subtle: #11302e;
+    --c-accent-border: #2c5f5a;
+    --c-accent-text: #8fd4cd;
+
+    --c-verified: #5cb880;
+    --c-verified-bg: #13291c;
+    --c-verified-border: #2c5a3c;
+
+    --c-caution: #d9a14f;
+    --c-caution-bg: #2b2012;
+    --c-caution-border: #5c4726;
+
+    --c-unknown: #a09992;
+    --c-unknown-bg: #232120;
+    --c-unknown-border: #38342f;
+
+    --c-problem: #e08880;
+    --c-problem-bg: #2d1917;
+    --c-problem-border: #5e302c;
+
+    --sh-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --sh-md: 0 1px 3px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
+    --sh-lg: 0 2px 6px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+    --sh-focus: 0 0 0 3px rgba(79, 179, 170, 0.25);
+  }
+}
+
+:root[data-theme='dark'] {
+  --c-bg: #151413;
+  --c-surface: #1d1b1a;
+  --c-surface-raised: #242221;
+  --c-surface-sunken: #121110;
+  --c-surface-hover: #272524;
+
+  --c-border: #322f2d;
+  --c-border-strong: #45413e;
+  --c-border-subtle: #272423;
+
+  --c-text: #f2efec;
+  --c-text-secondary: #b5aea7;
+  --c-text-tertiary: #857d76;
+  --c-text-inverse: #151413;
+
+  --c-accent: #4fb3aa;
+  --c-accent-hover: #63c2b9;
+  --c-accent-active: #7bcfc7;
+  --c-accent-subtle: #11302e;
+  --c-accent-border: #2c5f5a;
+  --c-accent-text: #8fd4cd;
+
+  --c-verified: #5cb880;
+  --c-verified-bg: #13291c;
+  --c-verified-border: #2c5a3c;
+
+  --c-caution: #d9a14f;
+  --c-caution-bg: #2b2012;
+  --c-caution-border: #5c4726;
+
+  --c-unknown: #a09992;
+  --c-unknown-bg: #232120;
+  --c-unknown-border: #38342f;
+
+  --c-problem: #e08880;
+  --c-problem-bg: #2d1917;
+  --c-problem-border: #5e302c;
+
+  --sh-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --sh-md: 0 1px 3px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
+  --sh-lg: 0 2px 6px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  --sh-focus: 0 0 0 3px rgba(79, 179, 170, 0.25);
+}

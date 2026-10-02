@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!--
+    Brand mark: three stacked rails, the shortest at the bottom.
+    A shelf, and a price comparison, in the same shape. No gloss, no gradient.
+  -->
+  <rect width="32" height="32" rx="7" fill="#0f5e59"/>
+  <g fill="#fbfaf9">
+    <rect x="7" y="8" width="18" height="3" rx="1.5"/>
+    <rect x="7" y="14.5" width="13" height="3" rx="1.5"/>
+    <rect x="7" y="21" width="8" height="3" rx="1.5"/>
+  </g>
+</svg>

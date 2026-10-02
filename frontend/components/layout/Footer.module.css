@@ -1,0 +1,115 @@
+.footer {
+  margin-top: var(--s-20);
+  border-top: 1px solid var(--c-border);
+  background: var(--c-surface-sunken);
+  padding-block: var(--s-10) var(--s-8);
+}
+
+.columns {
+  display: grid;
+  gap: var(--s-8);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .columns {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  }
+}
+
+.brandColumn {
+  max-width: 34ch;
+}
+
+.brand {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  margin-bottom: var(--s-2);
+}
+
+.tagline {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+.columnTitle {
+  font-size: var(--t-xs);
+  font-weight: var(--w-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  color: var(--c-text-tertiary);
+  margin-bottom: var(--s-3);
+}
+
+.linkList {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.link {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+}
+
+.link:hover {
+  color: var(--c-text);
+}
+
+/*
+ * Affiliate disclosure.
+ *
+ * In the footer of every page, in normal body text at normal contrast — not
+ * in small print, not collapsed, and not only on a legal page. Rule 22: the
+ * disclosure has to be legible to someone who is not looking for it.
+ */
+.disclosure {
+  margin-top: var(--s-8);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.disclosureText {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+  max-width: 76ch;
+}
+
+.disclosureLink {
+  font-size: var(--t-sm);
+  font-weight: var(--w-medium);
+  align-self: flex-start;
+}
+
+.bottom {
+  margin-top: var(--s-6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}
+
+.programmes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-4);
+}
+
+.programme {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}

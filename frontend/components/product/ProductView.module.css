@@ -1,0 +1,321 @@
+.breadcrumb {
+  padding-block: var(--s-4) var(--s-2);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+}
+
+.backLink:hover {
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+[dir='rtl'] .backLink :global(svg) {
+  transform: scaleX(-1);
+}
+
+.layout {
+  display: grid;
+  gap: var(--s-6);
+  padding-bottom: var(--s-10);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(280px, 420px) 1fr;
+    gap: var(--s-10);
+    align-items: start;
+  }
+}
+
+/* --- Media --------------------------------------------------------------- */
+
+.media {
+  display: grid;
+  gap: var(--s-3);
+}
+
+@media (min-width: 900px) {
+  .media {
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-4));
+  }
+}
+
+.image,
+.imagePlaceholder {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: var(--s-5);
+}
+
+.imagePlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text-tertiary);
+  font-size: var(--t-sm);
+}
+
+.thumbs {
+  display: flex;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+}
+
+.thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  padding: var(--s-1);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+}
+
+/* --- Main column --------------------------------------------------------- */
+
+.main {
+  display: grid;
+  gap: var(--s-5);
+  align-content: start;
+  min-width: 0;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.title {
+  font-size: var(--t-xl);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-snug);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--t-2xl);
+  }
+}
+
+.identity {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.identityRow {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, auto) 1fr;
+  gap: var(--s-3);
+  font-size: var(--t-sm);
+}
+
+.identityRow dt {
+  color: var(--c-text-tertiary);
+}
+
+.identityRow dd {
+  color: var(--c-text);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: var(--ls-normal);
+}
+
+.absent {
+  color: var(--c-text-tertiary);
+}
+
+.variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* --- Price --------------------------------------------------------------- */
+
+.priceBlock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-3);
+}
+
+.price {
+  font-size: var(--t-3xl);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.priceAbsent {
+  font-size: var(--t-lg);
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+}
+
+.reference {
+  font-size: var(--t-md);
+  color: var(--c-text-tertiary);
+  text-decoration: line-through;
+}
+
+.priceNote {
+  flex-basis: 100%;
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}
+
+/* --- Rating -------------------------------------------------------------- */
+
+.ratingRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--t-sm);
+}
+
+.ratingStars {
+  display: inline-flex;
+  gap: 1px;
+  color: var(--c-caution);
+}
+
+.ratingValue {
+  font-weight: var(--w-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.reviewCount {
+  color: var(--c-text-tertiary);
+}
+
+/* The "this source does not provide ratings" line. Readable, not a warning —
+ * it is a fact about our integration, not a problem with the product. */
+.ratingAbsent {
+  font-size: var(--t-sm);
+  color: var(--c-text-tertiary);
+  line-height: var(--lh-snug);
+}
+
+/* --- Specifications ------------------------------------------------------ */
+
+.sectionHeading {
+  font-size: var(--t-lg);
+  letter-spacing: var(--ls-tight);
+  margin-bottom: var(--s-3);
+}
+
+.specs {
+  padding-top: var(--s-2);
+}
+
+.specList {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: minmax(8rem, 15rem) 1fr;
+  gap: var(--s-3);
+  font-size: var(--t-sm);
+  padding-bottom: var(--s-2);
+  border-bottom: 1px solid var(--c-border-subtle);
+}
+
+.specLabel {
+  color: var(--c-text-tertiary);
+}
+
+.specValue {
+  color: var(--c-text-secondary);
+  line-height: var(--lh-snug);
+}
+
+/* --- Comparison --------------------------------------------------------- */
+
+.comparisonWrap {
+  padding-block: var(--s-8) var(--s-12);
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.noComparison {
+  display: grid;
+  gap: var(--s-2);
+  max-width: 72ch;
+}
+
+.noComparisonText {
+  font-size: var(--t-base);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+.noComparisonNote {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}
+
+/* --- Loading skeleton --------------------------------------------------- */
+
+.loadingGrid {
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .loadingGrid {
+    grid-template-columns: minmax(280px, 420px) 1fr;
+    gap: var(--s-10);
+  }
+}
+
+.loadingImage {
+  aspect-ratio: 1;
+  border-radius: var(--r-lg);
+}
+
+.loadingBody {
+  display: grid;
+  gap: var(--s-4);
+  align-content: start;
+}
+
+.loadingLine {
+  height: 28px;
+  width: 80%;
+}
+
+.loadingLineShort {
+  height: 28px;
+  width: 50%;
+}
+
+.loadingPrice {
+  height: 40px;
+  width: 160px;
+}
+
+.loadingPanel {
+  height: 220px;
+  border-radius: var(--r-lg);
+}

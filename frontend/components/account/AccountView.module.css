@@ -1,0 +1,152 @@
+.signInPanel {
+  display: grid;
+  gap: var(--s-4);
+  justify-items: start;
+  padding: var(--s-6);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  margin-bottom: var(--s-12);
+}
+
+.signInNote {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+  max-width: 60ch;
+}
+
+.loading {
+  height: 20rem;
+  border-radius: var(--r-lg);
+  margin-block: var(--s-8);
+}
+
+.sections {
+  display: grid;
+  gap: var(--s-6);
+  padding-bottom: var(--s-12);
+}
+
+.section {
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+  padding: var(--s-5);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+}
+
+.sectionTitle {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-snug);
+}
+
+.sectionNote {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+  max-width: 64ch;
+}
+
+.list {
+  display: grid;
+  gap: var(--s-2);
+  width: 100%;
+}
+
+.listItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-3);
+  font-size: var(--t-sm);
+  padding: var(--s-2) 0;
+  border-bottom: 1px solid var(--c-border-subtle);
+}
+
+.listMeta {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}
+
+.suspended {
+  font-size: var(--t-xs);
+  color: var(--c-caution);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+}
+
+.toggles {
+  display: grid;
+  gap: var(--s-1);
+  width: 100%;
+}
+
+.toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  cursor: pointer;
+  padding-block: var(--s-2);
+  line-height: var(--lh-snug);
+}
+
+.toggle input {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  accent-color: var(--c-accent);
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: var(--c-text);
+}
+
+.danger {
+  border-color: var(--c-problem-border);
+}
+
+.deleteBlock {
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+  width: 100%;
+}
+
+.deleteLabel {
+  display: grid;
+  gap: var(--s-1);
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  width: 100%;
+  max-width: 28rem;
+}
+
+.deleteInput {
+  padding: var(--s-2) var(--s-3);
+  font-size: var(--t-sm);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-md);
+  color: var(--c-text);
+}
+
+.deleteInput:focus-visible {
+  border-color: var(--c-problem);
+  outline: none;
+}
+
+.deleteError {
+  font-size: var(--t-sm);
+  color: var(--c-problem);
+}

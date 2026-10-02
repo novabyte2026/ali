@@ -1,0 +1,27 @@
+.wrap {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.destination {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  text-align: center;
+}
+
+/*
+ * The disclosure.
+ *
+ * Secondary text contrast, not tertiary, and at the same size as the rest of
+ * the supporting copy on the page. A disclosure set in 10px grey is a
+ * disclosure designed not to be read, which is the thing rule 22 prohibits.
+ */
+.disclosure {
+  font-size: var(--t-xs);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+  padding: var(--s-3);
+  background: var(--c-surface-sunken);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--r-md);
+}

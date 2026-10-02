@@ -1,32 +1,51 @@
 #!/usr/bin/env bash
-# Restarts the backend on its configured port for local verification.
+# Restarts the backend for local verification.
 #
-# Finds the listener by port rather than by command-line pattern: a pattern
-# match on the server path also matches the shell running this script, which
-# makes the script kill itself.
+# Tracks the child PID in a file rather than discovering it from the port:
+# `ss`/`lsof` are not present in every container, and a pattern match on the
+# process command line also matches the shell running this script, which makes
+# the script kill itself. A PID file works everywhere.
 set -euo pipefail
 
 PORT="${BACKEND_PORT:-4100}"
 LOG="${BACKEND_LOG:-/tmp/backend.log}"
+PIDFILE="${BACKEND_PIDFILE:-/tmp/shelf-backend.pid}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-existing="$(ss -lptnH "sport = :${PORT}" 2>/dev/null | grep -oP 'pid=\K[0-9]+' | head -1 || true)"
-if [ -n "$existing" ]; then
-  kill "$existing" 2>/dev/null || true
-  for _ in $(seq 1 20); do
-    kill -0 "$existing" 2>/dev/null || break
+stop_existing() {
+  [ -f "$PIDFILE" ] || return 0
+  local pid
+  pid="$(cat "$PIDFILE" 2>/dev/null || true)"
+  [ -n "$pid" ] || return 0
+
+  # Kill the whole process group: `npx` spawns node as a child, so signalling
+  # only the recorded pid leaves the listener holding the port.
+  kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+
+  for _ in $(seq 1 24); do
+    kill -0 "$pid" 2>/dev/null || break
     sleep 0.25
   done
-  kill -9 "$existing" 2>/dev/null || true
-fi
+  kill -KILL "-$pid" 2>/dev/null || kill -KILL "$pid" 2>/dev/null || true
+  rm -f "$PIDFILE"
+}
+
+stop_existing
 
 cd "$ROOT"
 setsid npx tsx backend/src/server.ts > "$LOG" 2>&1 < /dev/null &
+echo $! > "$PIDFILE"
 
-for _ in $(seq 1 40); do
+for _ in $(seq 1 60); do
   if curl -sf --noproxy '*' "http://127.0.0.1:${PORT}/health" >/dev/null 2>&1; then
-    echo "backend ready on ${PORT}"
+    echo "backend ready on ${PORT} (pid $(cat "$PIDFILE"))"
     exit 0
+  fi
+  # A crash is worth reporting immediately rather than after the full timeout.
+  if ! kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    echo "backend exited during startup:" >&2
+    tail -20 "$LOG" >&2
+    exit 1
   fi
   sleep 0.5
 done

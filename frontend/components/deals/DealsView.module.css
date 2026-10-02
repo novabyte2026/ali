@@ -1,0 +1,83 @@
+.body {
+  display: grid;
+  gap: var(--s-4);
+  padding-block: var(--s-6) var(--s-12);
+}
+
+.sourceNote {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  padding: var(--s-3);
+  background: var(--c-surface-sunken);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  line-height: var(--lh-snug);
+}
+
+.grid {
+  display: grid;
+  gap: var(--s-3);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  }
+}
+
+.card {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  padding: var(--s-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+}
+
+.cardTop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  justify-content: space-between;
+}
+
+.evidence {
+  display: grid;
+  gap: var(--s-2);
+}
+
+/* Evidence lines are the content of the card. Each one states what the deal
+ * rests on, so the card is informative without a headline percentage. */
+.evidenceItem {
+  display: flex;
+  gap: var(--s-2);
+  font-size: var(--t-sm);
+  color: var(--c-text);
+  line-height: var(--lh-snug);
+}
+
+.evidenceItem::before {
+  content: '';
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  margin-top: 0.5em;
+  border-radius: 50%;
+  background: var(--c-accent);
+}
+
+.cardMeta {
+  display: grid;
+  gap: var(--s-1);
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.skeletonCard {
+  height: 11rem;
+  border-radius: var(--r-lg);
+}

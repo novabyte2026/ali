@@ -1,0 +1,83 @@
+.wrap {
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+  padding: var(--s-8) var(--s-5);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  max-width: 60ch;
+}
+
+.heading {
+  font-size: var(--t-lg);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-text);
+}
+
+.hint {
+  font-size: var(--t-base);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+.suggestions {
+  display: grid;
+  gap: var(--s-2);
+  margin-top: var(--s-1);
+}
+
+/* Each suggestion is a button, not a bullet: they are actions that change the
+ * search, so clicking one should do the thing rather than describe it. */
+.suggestion {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--t-base);
+  color: var(--c-accent-text);
+  text-align: start;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--c-accent-border);
+}
+
+.suggestion::before {
+  content: '';
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--c-accent);
+}
+
+.suggestion:hover {
+  text-decoration-color: currentColor;
+}
+
+.actions {
+  display: flex;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+.requestId {
+  margin-top: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  user-select: all;
+}
+
+.panel {
+  padding: var(--s-6);
+  background: var(--c-surface-sunken);
+  border: 1px dashed var(--c-border);
+  border-radius: var(--r-md);
+}
+
+.panelText {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+}

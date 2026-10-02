@@ -96,6 +96,21 @@ export async function registerSearchRoutes(app: FastifyInstance, ctx: AppContext
       const parsed = parseSearchQuery(request.query as Record<string, string | undefined>, ctx);
       const providerIds = await resolveProviders(ctx, parsed.mode);
 
+      // Writing to `reply.raw` bypasses Fastify's reply decoration entirely,
+      // which means the CORS headers the plugin would normally add never get
+      // sent and a browser silently blocks the stream. They are set here
+      // explicitly, against the same allowlist the plugin uses.
+      const origin = request.headers.origin;
+      const corsHeaders: Record<string, string> =
+        origin && ctx.config.http.corsAllowedOrigins.includes(origin.replace(/\/$/, ''))
+          ? {
+              'access-control-allow-origin': origin,
+              'access-control-allow-credentials': 'true',
+              'access-control-expose-headers': 'x-request-id',
+              vary: 'Origin',
+            }
+          : {};
+
       reply.raw.writeHead(200, {
         'content-type': 'text/event-stream; charset=utf-8',
         'cache-control': 'no-store, no-transform',
@@ -104,6 +119,7 @@ export async function registerSearchRoutes(app: FastifyInstance, ctx: AppContext
         // which would defeat the entire point.
         'x-accel-buffering': 'no',
         'x-request-id': request.requestId,
+        ...corsHeaders,
       });
 
       const controller = new AbortController();
@@ -217,7 +233,14 @@ export async function registerSearchRoutes(app: FastifyInstance, ctx: AppContext
 
   /** Suggested example searches for the home page. */
   app.get('/api/v1/search/examples', async (request) => {
-    const locale = request.profile?.preferences.locale ?? ctx.defaults.locale;
+    // An explicit locale wins, then the signed-in user's preference, then the
+    // default. Reading only the profile meant an English visitor was shown
+    // Hebrew examples.
+    const requested = (request.query as { locale?: string }).locale;
+    const locale =
+      requested === 'he' || requested === 'en'
+        ? requested
+        : (request.profile?.preferences.locale ?? ctx.defaults.locale);
     return { examples: ctx.searchExamples(locale) };
   });
 }

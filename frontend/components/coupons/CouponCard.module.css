@@ -1,0 +1,110 @@
+.card {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  padding: var(--s-5);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  transition:
+    border-color var(--d-fast) var(--ease),
+    box-shadow var(--d-fast) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--c-border-strong);
+  box-shadow: var(--sh-sm);
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  justify-content: space-between;
+}
+
+.title {
+  font-size: var(--t-base);
+  font-weight: var(--w-medium);
+  line-height: var(--lh-snug);
+}
+
+.discount {
+  font-size: var(--t-xl);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-text);
+  line-height: 1;
+}
+
+.codeRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+/* The code is set in mono and is selectable as a unit, so copying by hand
+ * works as well as the button. */
+.code {
+  flex: 1;
+  min-width: 8rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-base);
+  font-weight: var(--w-medium);
+  letter-spacing: 0.06em;
+  padding: var(--s-2) var(--s-3);
+  background: var(--c-surface-sunken);
+  border: 1px dashed var(--c-border-strong);
+  border-radius: var(--r-md);
+  user-select: all;
+  text-align: center;
+}
+
+.statusNote {
+  font-size: var(--t-xs);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-snug);
+}
+
+.conditions {
+  display: grid;
+  gap: var(--s-1);
+}
+
+/* Conditions are caution-toned, because they are the reason a headline
+ * discount may not materialize at checkout. */
+.condition {
+  display: flex;
+  gap: var(--s-2);
+  font-size: var(--t-xs);
+  color: var(--c-caution);
+  line-height: var(--lh-snug);
+}
+
+.condition::before {
+  content: '';
+  flex-shrink: 0;
+  width: 3px;
+  height: 3px;
+  margin-top: 0.5em;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-3);
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.terms {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  line-height: var(--lh-snug);
+}
