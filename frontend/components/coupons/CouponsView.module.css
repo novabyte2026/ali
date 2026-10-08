@@ -1,0 +1,33 @@
+.body {
+  display: grid;
+  gap: var(--s-8);
+  padding-block: var(--s-6) var(--s-12);
+}
+
+.sourceSection {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.sourceHeading {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-snug);
+}
+
+.grid {
+  display: grid;
+  gap: var(--s-3);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  }
+}
+
+.skeletonCard {
+  height: 15rem;
+  border-radius: var(--r-lg);
+}

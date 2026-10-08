@@ -1,0 +1,32 @@
+.banner {
+  background: var(--c-caution-bg);
+  border-bottom: 1px solid var(--c-caution-border);
+  color: var(--c-caution);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding-block: var(--s-2);
+  font-size: var(--t-sm);
+  line-height: var(--lh-snug);
+}
+
+.inner :global(svg) {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+}
+
+.sources {
+  font-weight: var(--w-medium);
+  font-size: var(--t-xs);
+  white-space: nowrap;
+  opacity: 0.85;
+}

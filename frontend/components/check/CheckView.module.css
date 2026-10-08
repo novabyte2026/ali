@@ -1,0 +1,123 @@
+.form {
+  display: grid;
+  gap: var(--s-3);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  .form {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+  }
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-md);
+  padding-inline-start: var(--s-3);
+  transition:
+    border-color var(--d-fast) var(--ease),
+    box-shadow var(--d-fast) var(--ease);
+}
+
+.field:focus-within {
+  border-color: var(--c-accent);
+  box-shadow: var(--sh-focus);
+}
+
+.icon {
+  color: var(--c-text-tertiary);
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  outline: none;
+  padding: var(--s-3) var(--s-3) var(--s-3) 0;
+  font-size: var(--t-sm);
+  /* A pasted URL is long; mono keeps it scannable and stops it reflowing
+   * mid-token as the field resizes. */
+  font-family: var(--font-mono);
+  color: var(--c-text);
+}
+
+[dir='rtl'] .input {
+  padding: var(--s-3) 0 var(--s-3) var(--s-3);
+  /* A URL is always LTR even inside an RTL page. */
+  direction: ltr;
+  text-align: left;
+}
+
+.results {
+  display: grid;
+  gap: var(--s-4);
+  padding-block: var(--s-6) var(--s-12);
+}
+
+.panel {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  justify-items: start;
+}
+
+.panelTop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.panelHeading {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+  line-height: var(--lh-snug);
+}
+
+.panelText {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+.facts {
+  display: grid;
+  gap: var(--s-2);
+  width: 100%;
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: minmax(8rem, auto) 1fr;
+  gap: var(--s-3);
+  font-size: var(--t-sm);
+}
+
+.fact dt {
+  color: var(--c-text-tertiary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--c-text);
+}
+
+.warning {
+  font-size: var(--t-sm);
+  color: var(--c-caution);
+  background: var(--c-caution-bg);
+  border: 1px solid var(--c-caution-border);
+  border-radius: var(--r-md);
+  padding: var(--s-3);
+  line-height: var(--lh-snug);
+}

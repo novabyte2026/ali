@@ -1,0 +1,153 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  font-family: inherit;
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-snug);
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  /* Transitioned individually rather than `all`: transitioning everything
+   * means the browser animates properties nobody intended to animate. */
+  transition:
+    background-color var(--d-fast) var(--ease),
+    border-color var(--d-fast) var(--ease),
+    color var(--d-fast) var(--ease),
+    box-shadow var(--d-fast) var(--ease),
+    transform var(--d-fast) var(--ease);
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+/* Depress on click. 1px, which reads as a button responding rather than as an
+ * animation. */
+.button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* --- Sizes --------------------------------------------------------------- */
+
+.sm {
+  font-size: var(--t-sm);
+  padding: var(--s-2) var(--s-3);
+  min-height: 34px;
+}
+
+.md {
+  font-size: var(--t-base);
+  padding: var(--s-2) var(--s-4);
+  /* 40px keeps the hit area comfortable on a phone without looking oversized
+   * on a desktop. */
+  min-height: 40px;
+}
+
+.lg {
+  font-size: var(--t-md);
+  padding: var(--s-3) var(--s-6);
+  min-height: 48px;
+}
+
+/* --- Variants ------------------------------------------------------------ */
+
+.primary {
+  background: var(--c-accent);
+  color: var(--c-text-inverse);
+  border-color: var(--c-accent);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--c-accent-hover);
+  border-color: var(--c-accent-hover);
+}
+
+.primary:active:not(:disabled) {
+  background: var(--c-accent-active);
+}
+
+.secondary {
+  background: var(--c-surface);
+  color: var(--c-text);
+  border-color: var(--c-border-strong);
+  box-shadow: var(--sh-sm);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--c-surface-hover);
+  border-color: var(--c-text-tertiary);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--c-text-secondary);
+  border-color: transparent;
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--c-surface-hover);
+  color: var(--c-text);
+}
+
+.subtle {
+  background: var(--c-surface-sunken);
+  color: var(--c-text);
+  border-color: transparent;
+}
+
+.subtle:hover:not(:disabled) {
+  background: var(--c-surface-hover);
+  border-color: var(--c-border);
+}
+
+.danger {
+  background: var(--c-surface);
+  color: var(--c-problem);
+  border-color: var(--c-problem-border);
+}
+
+.danger:hover:not(:disabled) {
+  background: var(--c-problem-bg);
+}
+
+/* --- Modifiers ----------------------------------------------------------- */
+
+.block {
+  width: 100%;
+}
+
+.iconOnly {
+  padding: 0;
+  aspect-ratio: 1;
+}
+
+.iconOnly.sm {
+  width: 34px;
+}
+.iconOnly.md {
+  width: 40px;
+}
+.iconOnly.lg {
+  width: 48px;
+}
+
+/* Trailing icon flips with the writing direction, so an arrow that means
+ * "forward" points the way the reader is going. */
+.button :global(svg) {
+  flex-shrink: 0;
+}
+
+[dir='rtl'] .flipIcon :global(svg) {
+  transform: scaleX(-1);
+}

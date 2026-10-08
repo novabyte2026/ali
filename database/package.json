@@ -1,0 +1,32 @@
+{
+  "name": "@shelf/database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Forward-only SQL migrations and the migration runner. Schema changes never happen by hand.",
+  "scripts": {
+    "migrate": "tsx src/cli.ts up",
+    "status": "tsx src/cli.ts status",
+    "verify": "tsx src/cli.ts verify",
+    "build": "tsc -b",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.10"
+  },
+  "main": "./dist/runner.js",
+  "types": "./dist/runner.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/runner.d.ts",
+      "default": "./dist/runner.js"
+    },
+    "./runner": {
+      "types": "./dist/runner.d.ts",
+      "default": "./dist/runner.js"
+    }
+  }
+}

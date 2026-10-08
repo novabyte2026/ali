@@ -1,0 +1,328 @@
+/*
+ * Result card.
+ *
+ * Reads in a second or two: image, title, source, price, the total, and the
+ * one thing the user needs to know about the data. Everything else is
+ * progressive — the "why is this here" and the per-source rows are disclosure,
+ * not default content (rule 64).
+ */
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: var(--s-4);
+  padding: var(--s-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  transition:
+    transform var(--d-fast) var(--ease),
+    box-shadow var(--d-fast) var(--ease),
+    border-color var(--d-fast) var(--ease);
+}
+
+/* 3px lift and a slightly firmer border. Within the 2–4px the brief asks for;
+ * anything more and a grid of cards becomes restless on mouse-over. */
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sh-md);
+  border-color: var(--c-border-strong);
+}
+
+@media (min-width: 640px) {
+  .card {
+    grid-template-columns: 132px 1fr;
+    gap: var(--s-5);
+    padding: var(--s-5);
+  }
+}
+
+.imageWrap {
+  position: relative;
+  /* A fixed square with a reserved aspect ratio. Marketplace images vary
+   * wildly in dimension, and letting them size the row is the main source of
+   * layout shift on a results page (rule 191). */
+  aspect-ratio: 1;
+  background: var(--c-surface-sunken);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--s-2);
+}
+
+.imagePlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--c-text-tertiary);
+  font-size: var(--t-xs);
+  text-align: center;
+  padding: var(--s-2);
+}
+
+.body {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  min-width: 0;
+}
+
+.topRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.title {
+  font-size: var(--t-base);
+  font-weight: var(--w-medium);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-normal);
+  color: var(--c-text);
+  /* Two lines. Marketplace titles run to 200 characters and the useful part is
+   * at the front. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.titleLink {
+  color: inherit;
+}
+
+.titleLink:hover {
+  color: var(--c-accent-text);
+  text-decoration: none;
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: var(--t-md);
+  }
+}
+
+.priceRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2) var(--s-4);
+}
+
+.price {
+  font-size: var(--t-xl);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-text);
+  line-height: 1;
+}
+
+.priceUnknown {
+  font-size: var(--t-md);
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+}
+
+/* The reference price. Only rendered from a provider-supplied figure, never
+ * reconstructed from our own history. */
+.reference {
+  font-size: var(--t-sm);
+  color: var(--c-text-tertiary);
+  text-decoration: line-through;
+}
+
+.costLines {
+  display: grid;
+  gap: var(--s-1);
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+}
+
+.costLine {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+}
+
+.costLabel {
+  color: var(--c-text-tertiary);
+  min-width: 5.5rem;
+}
+
+.costValue {
+  font-weight: var(--w-medium);
+  color: var(--c-text-secondary);
+}
+
+.costValueUnknown {
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+}
+
+/* The total. Styled to read as a conclusion rather than another line item,
+ * and carrying its own state label when it is a range or absent. */
+.total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2);
+  padding-top: var(--s-2);
+  border-top: 1px dashed var(--c-border);
+}
+
+.totalLabel {
+  font-size: var(--t-sm);
+  color: var(--c-text-tertiary);
+}
+
+.totalValue {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+  color: var(--c-text);
+}
+
+.totalUnavailable {
+  font-size: var(--t-sm);
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+}
+
+.missing {
+  font-size: var(--t-xs);
+  color: var(--c-caution);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-3);
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+  margin-top: var(--s-1);
+}
+
+/* --- Per-source rows, for a multi-store group ---------------------------- */
+
+.sourceRows {
+  display: grid;
+  gap: var(--s-1);
+  margin-top: var(--s-1);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.sourceRowsTitle {
+  font-size: var(--t-xs);
+  font-weight: var(--w-medium);
+  color: var(--c-text-tertiary);
+  margin-bottom: var(--s-1);
+}
+
+.sourceRow {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, auto) 1fr auto;
+  align-items: baseline;
+  gap: var(--s-3);
+  font-size: var(--t-sm);
+  padding: var(--s-1) 0;
+}
+
+.sourceRowName {
+  font-weight: var(--w-medium);
+  color: var(--c-text-secondary);
+}
+
+.sourceRowPrice {
+  font-weight: var(--w-medium);
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.sourceRowNote {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  justify-self: end;
+}
+
+/* --- Explanation popover -------------------------------------------------- */
+
+.explain {
+  position: relative;
+}
+
+.explainButton {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-style: dotted;
+}
+
+.explainButton:hover {
+  color: var(--c-text-secondary);
+}
+
+.explainPanel {
+  margin-top: var(--s-2);
+  padding: var(--s-3);
+  background: var(--c-surface-sunken);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  font-size: var(--t-sm);
+}
+
+.explainList {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.explainItem {
+  display: flex;
+  gap: var(--s-2);
+  color: var(--c-text-secondary);
+  line-height: var(--lh-snug);
+}
+
+.explainItem::before {
+  content: '';
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  margin-top: 0.5em;
+  border-radius: 50%;
+  background: var(--c-accent);
+}
+
+/* The demo marker. Deliberately on the card itself, not only in the page
+ * banner, so a screenshot of a single card still carries it. */
+.demoMarker {
+  position: absolute;
+  top: var(--s-2);
+  inset-inline-end: var(--s-2);
+}

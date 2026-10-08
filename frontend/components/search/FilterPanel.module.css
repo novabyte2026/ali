@@ -1,0 +1,149 @@
+.panel {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.group {
+  display: grid;
+  gap: var(--s-2);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--c-border-subtle);
+}
+
+.group:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.groupTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  font-size: var(--t-xs);
+  font-weight: var(--w-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  color: var(--c-text-tertiary);
+}
+
+.currency {
+  text-transform: none;
+  letter-spacing: var(--ls-normal);
+  font-weight: var(--w-regular);
+}
+
+.priceRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-2);
+}
+
+.priceField {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.priceLabel {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}
+
+.input {
+  width: 100%;
+  padding: var(--s-2) var(--s-3);
+  font-size: var(--t-sm);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-md);
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.input:focus-visible {
+  border-color: var(--c-accent);
+  outline: none;
+  box-shadow: var(--sh-focus);
+}
+
+/* Hides the spin buttons: they are useless for a price and make the field
+ * narrower than the number it holds. */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.checkRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  cursor: pointer;
+  line-height: var(--lh-snug);
+  /* A comfortable target without making the row feel like a button. */
+  padding-block: var(--s-1);
+}
+
+.checkRow input[type='checkbox'] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  accent-color: var(--c-accent);
+  cursor: pointer;
+}
+
+.checkRow:hover {
+  color: var(--c-text);
+}
+
+/* The caveat under a filter label. Small but at readable contrast — this is
+ * the text that stops a user mis-reading what the filter does. */
+.note {
+  display: block;
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  margin-top: 2px;
+  line-height: var(--lh-snug);
+}
+
+.unavailableNote {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  line-height: var(--lh-snug);
+  padding: var(--s-2);
+  background: var(--c-surface-sunken);
+  border-radius: var(--r-sm);
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.chip {
+  padding: var(--s-1) var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-pill);
+  transition:
+    border-color var(--d-fast) var(--ease),
+    background-color var(--d-fast) var(--ease),
+    color var(--d-fast) var(--ease);
+}
+
+.chip:hover {
+  border-color: var(--c-border-strong);
+  color: var(--c-text);
+}
+
+.chipActive {
+  background: var(--c-accent-subtle);
+  border-color: var(--c-accent-border);
+  color: var(--c-accent-text);
+  font-weight: var(--w-medium);
+}

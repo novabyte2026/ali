@@ -1,0 +1,85 @@
+/* Mirrors ResultCard.module.css so the reserved space matches the real card. */
+
+.list {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: var(--s-4);
+  padding: var(--s-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+}
+
+@media (min-width: 640px) {
+  .card {
+    grid-template-columns: 132px 1fr;
+    gap: var(--s-5);
+    padding: var(--s-5);
+  }
+}
+
+.image {
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+}
+
+.body {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+}
+
+.badgeRow {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.badge {
+  width: 72px;
+  height: 20px;
+  border-radius: var(--r-sm);
+}
+
+.titleLine {
+  height: 17px;
+  width: 85%;
+}
+
+.titleLineShort {
+  height: 17px;
+  width: 55%;
+}
+
+.price {
+  height: 26px;
+  width: 104px;
+  margin-top: var(--s-1);
+}
+
+.costLine {
+  height: 14px;
+  width: 170px;
+}
+
+.actionRow {
+  display: flex;
+  gap: var(--s-2);
+  margin-top: var(--s-1);
+}
+
+.action {
+  height: 34px;
+  width: 136px;
+  border-radius: var(--r-md);
+}
+
+.actionSmall {
+  height: 34px;
+  width: 80px;
+  border-radius: var(--r-md);
+}

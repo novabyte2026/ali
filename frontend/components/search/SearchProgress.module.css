@@ -1,0 +1,158 @@
+/*
+ * Live progress.
+ *
+ * Shows the real pipeline stage and the real per-source state. There is no
+ * percentage bar here, deliberately: the backend knows which stage it is in
+ * and which sources have answered, but it does not know how long the rest will
+ * take, and a bar that implies otherwise is a lie told smoothly (rule 47).
+ *
+ * What animates is the current stage label and the per-source rows as they
+ * change state — which is motion that carries information.
+ */
+
+.panel {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+}
+
+.headline {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+}
+
+.stage {
+  font-size: var(--t-base);
+  font-weight: var(--w-medium);
+  color: var(--c-text);
+}
+
+/* Three dots that cycle while work is in flight. The only looping animation
+ * in the product, and it stops the moment the stream completes. */
+.dots {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  padding-bottom: 2px;
+}
+
+.dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--c-text-tertiary);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes pulse {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+.elapsed {
+  margin-inline-start: auto;
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.sources {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.source {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--t-sm);
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-md);
+  background: var(--c-surface-sunken);
+  transition: background-color var(--d-base) var(--ease);
+}
+
+.sourceName {
+  font-weight: var(--w-medium);
+  color: var(--c-text);
+  min-width: 6.5rem;
+}
+
+.sourceStatus {
+  color: var(--c-text-secondary);
+  font-size: var(--t-xs);
+}
+
+.sourceMeta {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* A marker dot per source, coloured by outcome. Carries the state at a glance
+ * without needing four icons. */
+.marker {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--c-border-strong);
+  transition: background-color var(--d-base) var(--ease);
+}
+
+.running .marker {
+  background: var(--c-accent);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.ok .marker {
+  background: var(--c-verified);
+}
+
+.empty .marker {
+  background: var(--c-unknown);
+}
+
+.failed .marker {
+  background: var(--c-problem);
+}
+
+.skipped .marker {
+  background: var(--c-caution);
+}
+
+.summary {
+  font-size: var(--t-sm);
+  color: var(--c-text-secondary);
+}
+
+.partial {
+  color: var(--c-caution);
+}
+
+.cancelRow {
+  display: flex;
+  justify-content: flex-start;
+}

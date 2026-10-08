@@ -1,0 +1,36 @@
+{
+  "name": "@shelf/backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "HTTP API, authentication, search aggregation, engines and the compliance layer.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc -b",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.1",
+    "@fastify/cors": "^10.0.1",
+    "@fastify/helmet": "^12.0.1",
+    "@fastify/multipart": "^9.0.1",
+    "@shelf/integrations": "*",
+    "@shelf/shared": "*",
+    "fastify": "^5.2.0",
+    "ioredis": "^5.4.2",
+    "pg": "^8.13.1",
+    "@shelf/database": "*"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.10"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+.panel {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+}
+
+.lines {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.line {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) 1fr;
+  gap: var(--s-3);
+  align-items: baseline;
+  font-size: var(--t-sm);
+}
+
+.lineLabel {
+  color: var(--c-text-tertiary);
+}
+
+.lineValue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2);
+  justify-content: flex-end;
+  text-align: end;
+}
+
+.valueKnown {
+  font-weight: var(--w-medium);
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.valueEstimated {
+  font-weight: var(--w-medium);
+  color: var(--c-caution);
+  font-variant-numeric: tabular-nums;
+}
+
+/* An unknown line is set in regular weight at tertiary contrast: present and
+ * legible, but visually not a figure. It must not be mistaken for a value. */
+.valueUnknown {
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+  font-style: normal;
+}
+
+.lineNote {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  flex-basis: 100%;
+  text-align: end;
+}
+
+.totalRow {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) 1fr;
+  gap: var(--s-3);
+  align-items: baseline;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--c-border);
+}
+
+.totalLabel {
+  font-size: var(--t-sm);
+  font-weight: var(--w-medium);
+  color: var(--c-text-secondary);
+}
+
+.totalValue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--s-2);
+}
+
+.totalFigure {
+  font-size: var(--t-lg);
+  font-weight: var(--w-semibold);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.totalUnavailable {
+  font-size: var(--t-sm);
+  font-weight: var(--w-regular);
+  color: var(--c-text-tertiary);
+  text-align: end;
+}
+
+.missing {
+  font-size: var(--t-xs);
+  color: var(--c-caution);
+  line-height: var(--lh-snug);
+}
+
+.missingLabel {
+  font-weight: var(--w-semibold);
+}
+
+.note {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+  line-height: var(--lh-snug);
+}

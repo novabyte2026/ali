@@ -1,0 +1,133 @@
+.form {
+  position: relative;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-lg);
+  padding-inline-start: var(--s-4);
+  padding-inline-end: var(--s-2);
+  box-shadow: var(--sh-sm);
+  transition:
+    border-color var(--d-fast) var(--ease),
+    box-shadow var(--d-fast) var(--ease);
+}
+
+.field:focus-within {
+  border-color: var(--c-accent);
+  box-shadow: var(--sh-focus);
+}
+
+.icon {
+  color: var(--c-text-tertiary);
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  outline: none;
+  padding-block: var(--s-3);
+  font-size: var(--t-base);
+  color: var(--c-text);
+}
+
+.input::placeholder {
+  color: var(--c-text-tertiary);
+}
+
+/* Hides the browser's own clear button, which duplicates ours and is styled
+ * inconsistently across engines. */
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.hero .input {
+  padding-block: var(--s-4);
+  font-size: var(--t-lg);
+}
+
+.hero .field {
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-md);
+  padding-inline-start: var(--s-5);
+}
+
+.compact .input {
+  padding-block: var(--s-2);
+  font-size: var(--t-sm);
+}
+
+.compact .field {
+  border-radius: var(--r-md);
+  padding-inline-start: var(--s-3);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  flex-shrink: 0;
+}
+
+/*
+ * Understood-constraints row.
+ *
+ * Shows what the parser extracted and lets the user remove any of it. This is
+ * the counterweight to natural-language parsing: the system says what it
+ * understood instead of silently applying a filter the user did not intend.
+ */
+.understood {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+}
+
+.understoodLabel {
+  font-size: var(--t-xs);
+  color: var(--c-text-tertiary);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: 0.25rem var(--s-2);
+  font-size: var(--t-xs);
+  font-weight: var(--w-medium);
+  background: var(--c-accent-subtle);
+  color: var(--c-accent-text);
+  border: 1px solid var(--c-accent-border);
+  border-radius: var(--r-pill);
+}
+
+.chipRemove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  color: inherit;
+  opacity: 0.65;
+  transition: opacity var(--d-fast) var(--ease);
+}
+
+.chipRemove:hover {
+  opacity: 1;
+  background: color-mix(in srgb, var(--c-accent-text) 12%, transparent);
+}
+
+.chipRemove :global(svg) {
+  width: 11px;
+  height: 11px;
+}

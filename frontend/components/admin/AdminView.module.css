@@ -1,0 +1,163 @@
+.section {
+  display: grid;
+  gap: var(--s-4);
+  padding-bottom: var(--s-10);
+}
+
+.sectionTitle {
+  font-size: var(--t-lg);
+  letter-spacing: var(--ls-tight);
+}
+
+.cards {
+  display: grid;
+  gap: var(--s-3);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 760px) {
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  }
+}
+
+.card {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  padding: var(--s-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+}
+
+.cardHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+
+.cardTitle {
+  font-size: var(--t-md);
+  font-weight: var(--w-semibold);
+}
+
+.facts {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) 1fr;
+  gap: var(--s-2);
+  font-size: var(--t-sm);
+}
+
+.fact dt {
+  color: var(--c-text-tertiary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+}
+
+.group {
+  display: grid;
+  gap: var(--s-2);
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.groupTitle {
+  font-size: var(--t-xs);
+  font-weight: var(--w-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  color: var(--c-text-tertiary);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+}
+
+.cardFooter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.warningCount {
+  font-size: var(--t-xs);
+  font-weight: var(--w-semibold);
+  color: var(--c-problem);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Health table -------------------------------------------------------- */
+
+.tableWrap {
+  overflow-x: auto;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+}
+
+.table {
+  min-width: 42rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.table thead th {
+  text-align: start;
+  font-size: var(--t-xs);
+  font-weight: var(--w-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  color: var(--c-text-tertiary);
+  padding: var(--s-3) var(--s-4);
+  background: var(--c-surface-sunken);
+  border-bottom: 1px solid var(--c-border);
+  white-space: nowrap;
+}
+
+.table tbody th,
+.table tbody td {
+  padding: var(--s-3) var(--s-4);
+  font-size: var(--t-sm);
+  text-align: start;
+  vertical-align: middle;
+}
+
+.table tbody th {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-weight: var(--w-medium);
+}
+
+.table tbody tr + tr th,
+.table tbody tr + tr td {
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.numeric {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Setting names only. A value never appears in this column. */
+.missingCell {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--c-caution);
+}
